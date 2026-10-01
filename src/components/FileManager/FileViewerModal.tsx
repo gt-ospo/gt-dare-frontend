@@ -4,6 +4,7 @@ import { Button } from '../ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import { FileText, AlertCircle, Download, ExternalLink } from 'lucide-react'
 import axios from 'axios'
+import { config } from '../../config/environment'
 import FileStructurePanel from './FileStructurePanel'
 import FileProcessingJourneyPanel from './FileProcessingJourneyPanel'
 import FileMapPanel from './FileMapPanel'
@@ -70,11 +71,9 @@ const FileViewerModal = ({
 
     try {
       const token = localStorage.getItem('token')
-      const baseUrl =
-        import.meta.env.VITE_DJANGO_BACKEND_URL || 'http://localhost:8000'
 
       const response = await axios({
-        url: `${baseUrl}/api/files/${fileId}/view/`,
+        url: `${config.apiUrl}/api/files/${fileId}/view/`,
         method: 'GET',
         responseType: 'blob',
         headers: {

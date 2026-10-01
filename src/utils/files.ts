@@ -4,10 +4,11 @@ import {
   TAG_COLORS,
 } from './constants/file'
 import { formatDurationSeconds } from './dateUtils'
+import { config } from '../config/environment'
 
 /** Socket events use relative paths; REST history may return absolute URLs. */
 export const resolveMediaUrl = (fileUrl: string): string =>
-  new URL(fileUrl, `${import.meta.env.VITE_DJANGO_BACKEND_URL}/`).href
+  new URL(fileUrl, `${config.apiUrl}/`).href
 
 /** Journey durations: an absent value means the step is still running. */
 export const formatJourneyDuration = (seconds?: number): string =>

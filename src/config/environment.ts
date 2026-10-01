@@ -48,6 +48,27 @@ function getEnvironment(): AppEnvironment {
   return env
 }
 
+/**
+ * The page's own origin, for deployments that serve the API under it through a
+ * reverse proxy.
+ *
+ * Vite inlines ``VITE_*`` at build time, so a bundle built with an absolute
+ * backend URL only works when reached at exactly that address — a tunnel, a
+ * different port, or a later move to HTTPS each need their own rebuild. Leaving
+ * ``VITE_DJANGO_BACKEND_URL`` empty makes the bundle origin-agnostic instead,
+ * which is what a same-origin proxy deployment wants. Set the variable
+ * explicitly when the API really does live somewhere else.
+ */
+function currentOrigin(): string {
+  return typeof window === 'undefined' ? '' : window.location.origin
+}
+
+function currentWebsocketOrigin(): string {
+  if (typeof window === 'undefined') return ''
+  const scheme = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+  return `${scheme}//${window.location.host}`
+}
+
 function buildEnvironmentConfig(): EnvironmentConfig {
   const environment = getEnvironment()
 
@@ -57,8 +78,9 @@ function buildEnvironmentConfig(): EnvironmentConfig {
     isDareStaging: environment === 'dare-staging',
     isDareProduction: environment === 'dare-production',
     isGtProduction: environment === 'gt-production',
-    apiUrl: import.meta.env.VITE_DJANGO_BACKEND_URL || 'http://localhost:8000',
-    websocketUrl: import.meta.env.VITE_WEBSOCKET_URL || 'ws://localhost:8000',
+    apiUrl: import.meta.env.VITE_DJANGO_BACKEND_URL || currentOrigin(),
+    websocketUrl:
+      import.meta.env.VITE_WEBSOCKET_URL || currentWebsocketOrigin(),
     socraticBooksUrl: import.meta.env.VITE_SOCRATIC_BOOKS_URL,
   }
 }
