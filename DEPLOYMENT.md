@@ -12,6 +12,17 @@ For the full environment variable reference, see [docs/configuration.md](docs/co
 
 ---
 
+## GT homepage behavior
+
+Opening the application root (`/`) uses the existing account checks: visitors and
+inactive accounts go to `/login`, active accounts go to `/dashboard`, and active
+accounts with incomplete onboarding go to `/onboarding`. Redirects replace the
+history entry so Back does not repeatedly return to the homepage redirect.
+
+The GT application remains on port 5173; Django admin remains on port 5174.
+Registration, email verification and password-reset links retain their existing
+routes. This frontend change does not alter account permissions or enable HTTPS.
+
 ## Prerequisites
 
 | Requirement                                | Version | Notes                                              |
