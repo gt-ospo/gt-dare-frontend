@@ -37,7 +37,6 @@ import MCPToolExecute from '@/pages/MCP/MCPToolExecute.tsx'
 import MCPExecutionHistory from '@/pages/MCP/MCPExecutionHistory.tsx'
 import MCPConnectionResult from '@/pages/MCP/MCPConnectionResult.tsx'
 import MemoryScreen from '@/pages/Memory'
-import LandingPage from '../pages/Landing/LandingPage'
 import AboutPage from '../pages/About/AboutPage'
 import ResearchProjects from '../pages/Research/ResearchProjects'
 import ResearchWorkspace from '../pages/Research/ResearchWorkspace'
@@ -101,8 +100,14 @@ const AppRoutes = () => {
             }
           />
 
-          {/* Public marketing landing page */}
-          <Route path='/' element={<LandingPage />} />
+          <Route
+            path='/'
+            element={
+              <ProtectedRoute>
+                <Navigate to='/dashboard' replace />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Public unified about page (mission + repositories + team) */}
           <Route path='/about' element={<AboutPage />} />
