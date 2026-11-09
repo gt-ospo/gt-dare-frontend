@@ -84,7 +84,7 @@ function App() {
       <div className='fixed inset-0 flex items-center justify-center'>
         <BackgroundCircle />
         <div className='flex h-full items-center justify-center'>
-          <Loader className='h-16 w-16 text-red-500' />
+          <Loader className='h-16 w-16 text-primary' />
         </div>
       </div>
     )

@@ -6,6 +6,8 @@ import Dashboard from '../pages/Dashboard'
 import Files from '../pages/Files'
 import VerifyCodeScreen from '../pages/VerifyCode'
 import LoginScreen from '../pages/Login'
+import UserGuide from '../pages/UserGuide'
+import AccessHelp from '../pages/AccessHelp'
 import ForgotScreen from '../pages/ForgotPassword'
 import RequestAccessScreen from '../pages/RequestAccess'
 import SignupPendingScreen from '../pages/SignupPending'
@@ -57,6 +59,8 @@ const AppRoutes = () => {
         {isAuthenticated && <FeedbackWidget />}
         <Routes>
           <Route path='/login' element={<LoginScreen />} />
+          <Route path='/access-help' element={<AccessHelp />} />
+          <Route path='/user-guide' element={<AccessHelp />} />
           <Route path='/request-access' element={<RequestAccessScreen />} />
           <Route path='/signup-pending' element={<SignupPendingScreen />} />
           <Route path='/register' element={<RegistrationScreen />} />
@@ -179,6 +183,8 @@ const AppRoutes = () => {
             <Route path='/workflows' element={<Workflows />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/help' element={<Help />} />
+            <Route path='/help/user-guide' element={<UserGuide />} />
+            <Route path='/help/user-guide/:topicId' element={<UserGuide />} />
             {/* OAuth callback landing — must stay OUTSIDE the enableMcp gate:
                 the flag is false while still loading right after the redirect,
                 which would drop the user on the 404 catch-all. */}

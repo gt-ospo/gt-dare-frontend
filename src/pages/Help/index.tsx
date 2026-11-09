@@ -99,7 +99,7 @@ const Help = () => {
 
   if (error) {
     return (
-      <div className='m-4 rounded-lg border border-red-200 bg-red-50 p-4 text-center text-red-700'>
+      <div className='m-4 rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-center text-destructive'>
         <p>Error loading models: {error}</p>
       </div>
     )
@@ -110,7 +110,7 @@ const Help = () => {
       <div className='flex flex-col space-y-2'>
         <h1 className='text-3xl font-bold tracking-tight'>Help</h1>
         <p className='text-muted-foreground'>
-          Find answers to your questions and learn how to use the platform.
+          Open the User Manual, get account help or check model information.
         </p>
       </div>
       <ScrollArea className='h-full'>
@@ -121,44 +121,36 @@ const Help = () => {
               User Documentation
             </CardTitle>
             <CardDescription>
-              Essential guides and information on using the DARE LLM Gateway
+              Instructions for the GT-DARE site and your account.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className='space-y-4'>
-              <div className='rounded-lg border border-border p-4 transition-all hover:border-blue-300 hover:shadow-md'>
-                <a href='/docs/' className='flex items-start justify-between'>
-                  <div>
-                    <h3 className='font-medium text-foreground'>
-                      DARE Documentation
-                    </h3>
-                    <p className='mt-1 text-sm text-muted-foreground'>
-                      Product guides, frontend documentation, backend
-                      architecture, deployment notes, and API references.
-                    </p>
-                  </div>
-                  <FileText className='h-5 w-5 shrink-0 text-blue-500' />
-                </a>
-              </div>
-              <div className='rounded-lg border border-border p-4 transition-all hover:border-blue-300 hover:shadow-md'>
-                <a
-                  href='https://docs.google.com/document/d/12t1EinvBwM4MsSSjvlWpNvav1dWW32zo1A9FhY8BfLM/edit?tab=t.0#heading=h.h5z6kf1kmw3f'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='flex items-start justify-between'
-                >
-                  <div>
-                    <h3 className='font-medium text-foreground'>
-                      DARE LLM Gateway User Guide (Printed)
-                    </h3>
-                    <p className='mt-1 text-sm text-muted-foreground'>
-                      Comprehensive guide to using the DARE platform, including
-                      features, workflows, and best practices.
-                    </p>
-                  </div>
-                  <ExternalLink className='h-5 w-5 shrink-0 text-blue-500' />
-                </a>
-              </div>
+              <Link
+                to='/help/user-guide'
+                className='block rounded-lg border border-border p-4 text-foreground transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+              >
+                <h3 className='font-medium'>GT-DARE User Manual</h3>
+                <p className='mt-1 text-sm text-muted-foreground'>
+                  Conversations, sources, prompts, agents, workflows and account
+                  settings.
+                </p>
+              </Link>
+              <Link
+                to='/access-help'
+                className='block rounded-lg border border-border p-4 text-foreground transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+              >
+                <h3 className='font-medium'>Access and account help</h3>
+                <p className='mt-1 text-sm text-muted-foreground'>
+                  VPN access, signup, email verification, approval and password
+                  resets.
+                </p>
+              </Link>
+              <p className='text-sm text-muted-foreground'>
+                To print a manual topic or save it as PDF, open the topic and
+                choose
+                <strong> Print or save as PDF</strong>.
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -174,8 +166,7 @@ const Help = () => {
               Learning Modules
             </CardTitle>
             <CardDescription>
-              Access curated learning modules and resources to deepen your
-              understanding of the DARE platform and related concepts.
+              Optional teaching exercises on prompts, documents and workflows.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -192,8 +183,9 @@ const Help = () => {
                       DARE Learning Modules
                     </h3>
                     <p className='mt-1 text-sm text-muted-foreground'>
-                      Explore sample exercises, system prompting, multi-agent
-                      workflows, and more.
+                      Opens the CMU teaching materials in Google Drive. Access
+                      to that folder may be required; the GT-DARE manual above
+                      is available inside this platform.
                     </p>
                   </div>
                   <ExternalLink className='h-5 w-5 shrink-0 text-blue-500' />

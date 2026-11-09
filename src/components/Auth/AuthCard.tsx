@@ -1,12 +1,12 @@
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Formik, Form, FormikConfig, FormikValues } from 'formik'
 import TextInput from '../ui/TextInput'
 import { RootState } from '../../redux/store'
 import { useSelector } from 'react-redux'
 import Loader from '../Loader'
 import { Button } from '../ui/button'
-import { Logo } from '@/components/Logo'
+import PublicLayout from './PublicLayout'
 
 interface InputField {
   name: string
@@ -27,6 +27,7 @@ interface AuthCardProps<T extends FormikValues> {
   footer?: React.ReactNode
   children?: React.ReactNode
   roleSelect?: React.ReactNode
+  embedded?: boolean
   onResendVerification?: (values: T) => void
 }
 
@@ -43,9 +44,10 @@ const AuthCard = <T extends FormikValues>({
   footer,
   children,
   roleSelect,
+  embedded = false,
   onResendVerification,
 }: AuthCardProps<T>) => {
-  const navigate = useNavigate()
+  const Heading = embedded ? 'h2' : 'h1'
   const error = useSelector((state: RootState) => state.user.error)
   const loading = useSelector((state: RootState) => state.user.loading)
 
@@ -54,28 +56,42 @@ const AuthCard = <T extends FormikValues>({
     error &&
     error.toLowerCase().includes('e-mail is not verified')
 
-  return (
-    <div className='flex min-h-screen flex-col items-center justify-center'>
-      <div className='gradient-border relative mx-auto flex w-[80vw] flex-col items-center justify-center gap-3 rounded-2xl border-6 bg-card p-8 shadow-md md:w-[60vw] lg:w-[50vw] xl:w-[40vw]'>
+  const content = (
+    <div
+      className={
+        embedded ? 'w-full' : 'mx-auto w-full max-w-xl px-5 py-6 sm:px-8'
+      }
+    >
+      <div
+        className={
+          embedded
+            ? 'flex w-full flex-col items-center gap-3'
+            : 'relative flex w-full flex-col items-center gap-4 rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8'
+        }
+      >
         {showBackButton && (
-          <div
-            className='absolute top-5 left-9 mt-4 flex w-full cursor-pointer items-center gap-1 text-left text-xs'
-            onClick={() => navigate('/login')}
+          <Link
+            to='/login'
+            className='inline-flex min-h-11 items-center gap-2 self-start rounded-sm text-sm font-medium text-dare underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
           >
-            <ArrowLeftIcon className='h-5 w-5' />
-            <span className='hidden lg:block'>Back to login</span>
-          </div>
+            <ArrowLeftIcon className='h-4 w-4' aria-hidden='true' />
+            Back to login
+          </Link>
         )}
 
-        <div className='relative -top-10 flex h-[60px] items-center'>
-          <Logo size='lg' orientation='vertical' showTagline />
-        </div>
-
-        <h1 className='text-center text-2xl font-black text-foreground'>
+        <Heading
+          className={
+            embedded
+              ? 'w-full text-2xl font-semibold tracking-tight text-foreground'
+              : 'w-full text-2xl leading-tight font-semibold tracking-tight text-foreground sm:text-3xl'
+          }
+        >
           {title}
-        </h1>
+        </Heading>
         {subtitle && (
-          <p className={`w-[80%] text-sm ${subtitleClassName || 'text-start'}`}>
+          <p
+            className={`w-full text-base leading-relaxed text-muted-foreground ${subtitleClassName || 'text-start'}`}
+          >
             {subtitle}
           </p>
         )}
@@ -84,7 +100,7 @@ const AuthCard = <T extends FormikValues>({
 
         <Formik {...formikConfig}>
           {({ values, errors, touched, handleChange, handleBlur }) => (
-            <Form className='w-[80%] md:w-[70%] lg:w-[70%]'>
+            <Form className='w-full [&_input]:min-h-11 [&_input]:text-base'>
               {inputs.map((input) => (
                 <TextInput
                   key={input.name}
@@ -106,7 +122,10 @@ const AuthCard = <T extends FormikValues>({
 
               {showForgotPassword && (
                 <div className='mb-4 flex justify-end text-sm'>
-                  <Link to='/forgot-password' className='font-medium text-dare'>
+                  <Link
+                    to='/forgot-password'
+                    className='inline-flex min-h-11 items-center rounded-sm font-medium text-dare underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+                  >
                     Forgot Password?
                   </Link>
                 </div>
@@ -116,7 +135,7 @@ const AuthCard = <T extends FormikValues>({
                 <Button
                   type='submit'
                   variant='default'
-                  className='text-md mt-3 flex w-full items-center justify-center rounded-md px-4 py-2 font-medium'
+                  className='text-md mt-3 flex min-h-11 w-full items-center justify-center rounded-md px-4 py-2 font-medium'
                 >
                   {loading ? <Loader /> : buttonText}
                 </Button>
@@ -135,7 +154,7 @@ const AuthCard = <T extends FormikValues>({
                           onResendVerification && onResendVerification(values)
                         }
                         disabled={loading}
-                        className='mt-3 w-max rounded-md bg-secondary text-xs font-medium text-secondary-foreground shadow-xs hover:bg-secondary/80'
+                        className='mt-3 min-h-11 max-w-full rounded-md bg-secondary text-xs font-medium text-secondary-foreground shadow-xs hover:bg-secondary/80'
                       >
                         Resend Verification Email?
                       </Button>
@@ -147,17 +166,24 @@ const AuthCard = <T extends FormikValues>({
           )}
         </Formik>
 
-        {footer && <div className='mt-4'>{footer}</div>}
-        <div className='h-[50px]'></div>
+        {footer && <div className='w-full'>{footer}</div>}
 
         {showprivacyPolicy && (
-          <p className='absolute -bottom-10 text-center text-sm text-muted-foreground'>
+          <p className='text-center text-xs leading-relaxed text-muted-foreground'>
             By signing up, you are agreeing to DARE's Terms of Service and
             Privacy Policy.
           </p>
         )}
       </div>
     </div>
+  )
+
+  return embedded ? (
+    content
+  ) : (
+    <PublicLayout>
+      <main>{content}</main>
+    </PublicLayout>
   )
 }
 
