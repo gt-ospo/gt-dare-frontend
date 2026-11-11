@@ -359,7 +359,7 @@ export function getTourPageKeyFromPath(pathname: string): TourPageKey | null {
   if (pathname.startsWith('/workflows')) return 'workflows'
   if (pathname.startsWith('/agents')) return 'agents'
   if (pathname.startsWith('/settings')) return 'settings'
-  if (pathname.startsWith('/help')) return 'help'
+  if (pathname === '/help' || pathname === '/help/') return 'help'
   if (pathname.startsWith('/billing')) return 'billing'
   return null
 }
