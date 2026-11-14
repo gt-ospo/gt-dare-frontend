@@ -38,6 +38,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { TOOLTIP_CONTENT } from '@/constants/tooltipContent'
+import { formatWalletBalance } from '@/utils/wallets'
 
 const Dashboard = () => {
   const dispatch = useAppDispatch()
@@ -52,7 +53,7 @@ const Dashboard = () => {
   const hasLiteLLMKey = wallets.some((w) => w.type === 'LITELLM')
   const dareBalance =
     dareWallet?.status.kind === 'BALANCE'
-      ? `$${parseFloat(dareWallet.status.balance).toFixed(2)}`
+      ? formatWalletBalance(dareWallet.status.balance)
       : '$0.00'
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedTokenType, setSelectedTokenType] = useState<

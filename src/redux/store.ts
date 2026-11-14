@@ -28,6 +28,7 @@ import researchReducer from './researchSlice'
 import libraryReducer from './librarySlice'
 import { socketMiddleware } from './middleware/socketMiddleware'
 import { workflowSocketMiddleware } from './middleware/workflowSocketMiddleware'
+import { createBillingRefreshMiddleware } from './middleware/billingRefreshMiddleware'
 import ensembleReducer from './ensembleSlice'
 import { saveDraftsToLocalStorage } from '../utils/draftStorage'
 import { debugLog, setDebugLogsAccessor } from '@/utils/debugLogger'
@@ -95,7 +96,10 @@ export const store = configureStore({
     }).concat(draftPersistenceMiddleware)
 
     debugLog('🔌 Socket.IO middleware registered')
-    return middlewares.concat(socketMiddleware).concat(workflowSocketMiddleware)
+    return middlewares
+      .concat(createBillingRefreshMiddleware())
+      .concat(socketMiddleware)
+      .concat(workflowSocketMiddleware)
   },
   enhancers: (getDefaultEnhancers) =>
     getDefaultEnhancers().concat(sentryReduxEnhancer),

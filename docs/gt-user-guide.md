@@ -312,6 +312,9 @@ The **DARE Wallet** records allocated usage credit. Its displayed dollar balance
 3. After one small conversation, find its usage entry. Review the model, input/output tokens and recorded amount.
 4. Compare the amount with the balance change. Check for other transactions if the difference includes more than that one request.
 
+Balances show up to six decimal places so small recorded charges remain visible.
+A completed response refreshes the wallet and usage totals.
+
 ### Understand tokens and rates
 
 Input tokens can include the selected prompt, current question, included history and document context. Output tokens are the model's generated response. Follow-up questions can send earlier context again; they are not priced only on the new sentence you typed.
