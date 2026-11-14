@@ -8,7 +8,6 @@ import {
 } from './validation'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/store'
-import { toggleMode } from '../../redux/themeSlice'
 import { useNavigate } from 'react-router-dom'
 import {
   getUserData,
@@ -17,9 +16,8 @@ import {
 } from '../../redux/asyncThunks/user'
 import { resetError } from '../../redux/userSlice'
 import { useAppSelector } from '../../redux/hooks'
-import { Button } from '../../components/ui/button'
-import { Moon, Sun } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
+import GTLoginLayout from '@/components/Auth/GTLoginLayout'
 
 const LoginScreen: React.FC = () => {
   const navigate = useNavigate()
@@ -96,10 +94,6 @@ const LoginScreen: React.FC = () => {
     }
   }
 
-  const toggleTheme = () => {
-    dispatch(toggleMode())
-  }
-
   const formikConfig = {
     initialValues: loginInitialValues,
     validationSchema: loginValidationSchema,
@@ -112,16 +106,10 @@ const LoginScreen: React.FC = () => {
   ]
 
   return (
-    <>
-      <div className='fixed top-6 right-6 z-10'>
-        <Button variant='outline' size='icon' onClick={toggleTheme}>
-          <Sun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90' />
-          <Moon className='absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0' />
-          <span className='sr-only'>Toggle theme</span>
-        </Button>
-      </div>
+    <GTLoginLayout>
       <AuthCard<LoginFormValues>
-        title='Welcome to the Dietrich Analysis Research Education (DARE) Platform'
+        title='Sign in'
+        embedded
         inputs={inputs}
         formikConfig={formikConfig}
         buttonText='Sign In'
@@ -136,14 +124,14 @@ const LoginScreen: React.FC = () => {
             />
 
             {resendSuccess && (
-              <div className='mt-3 w-max rounded-md bg-green-500 px-4 py-2 text-xs font-medium text-white shadow-xs'>
+              <div className='mt-3 max-w-full rounded-md bg-accent px-4 py-2 text-xs font-medium text-accent-foreground shadow-xs'>
                 Verification email resent successfully. Please check your inbox.
               </div>
             )}
           </>
         }
       />
-    </>
+    </GTLoginLayout>
   )
 }
 

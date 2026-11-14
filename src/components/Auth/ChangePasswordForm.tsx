@@ -140,7 +140,7 @@ export const ChangePasswordForm: React.FC = () => {
 
           {success && (
             <div className='mt-2'>
-              <p className='text-xs font-medium text-green-500'>
+              <p className='text-xs font-medium text-primary'>
                 Password changed successfully!
               </p>
             </div>

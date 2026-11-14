@@ -9,6 +9,7 @@ import {
   CreditCardIcon,
   AcademicCapIcon,
   BeakerIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronLeftIcon } from '@heroicons/react/20/solid'
 import { TooltipProvider } from '../ui/tooltip'
@@ -181,7 +182,8 @@ const Sidebar = () => {
     ...(hasOwnedGroups
       ? [{ name: 'Group Wallet', icon: UsersIcon, path: '/group-wallet' }]
       : []),
-    { name: 'Help', icon: QuestionMarkCircleIcon, path: '/help' },
+    { name: 'User Manual', icon: BookOpenIcon, path: '/help/user-guide' },
+    { name: 'Help & support', icon: QuestionMarkCircleIcon, path: '/help' },
     { name: 'Settings', icon: Cog8ToothIcon, path: '/settings' },
   ]
 
@@ -190,10 +192,14 @@ const Sidebar = () => {
       <div
         className={`relative flex shrink-0 ${
           isCollapsed ? 'w-[80px]' : 'w-[160px] md:w-[200px] lg:w-[200px]'
-        } h-full flex-col border border-t-0 border-sidebar-border bg-sidebar bg-clip-border text-sidebar-foreground transition-all duration-300`}
+        } h-full flex-col border border-t-0 border-sidebar-border bg-sidebar bg-clip-border text-sidebar-foreground transition-all duration-300 print:hidden`}
       >
         <div className='flex items-center justify-between p-4'>
           <button
+            aria-label={
+              isCollapsed ? 'Expand navigation' : 'Collapse navigation'
+            }
+            aria-expanded={!isCollapsed}
             onClick={() => setIsCollapsed(!isCollapsed)}
             className={`absolute top-4 -right-4 z-10 mt-1 translate-x-0 transform rounded-full border-2 border-border bg-background p-1 transition-all hover:bg-accent`}
           >
@@ -204,7 +210,10 @@ const Sidebar = () => {
             />
           </button>
         </div>
-        <nav className='flex grow flex-col gap-1 p-2 font-sans text-base font-normal'>
+        <nav
+          aria-label='Workspace navigation'
+          className='flex min-h-0 grow flex-col gap-1 overflow-y-auto p-2 font-sans text-base font-normal'
+        >
           {menuItems.map((item) => {
             const isActive =
               item.path === '/conversation'
@@ -214,6 +223,8 @@ const Sidebar = () => {
               <Link
                 key={item.name}
                 to={item.path}
+                title={isCollapsed ? item.name : undefined}
+                aria-label={item.name}
                 className={`flex w-full items-center rounded-xl p-3 text-start leading-tight outline-hidden transition-all ${
                   isActive
                     ? 'bg-sidebar-accent text-sidebar-accent-foreground'
@@ -277,6 +288,8 @@ const Sidebar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
+                  title={isCollapsed ? item.name : undefined}
+                  aria-label={item.name}
                   className={`flex w-full items-center rounded-lg p-3 text-start leading-tight outline-hidden transition-all ${
                     isActive
                       ? 'bg-sidebar-accent text-sidebar-accent-foreground'

@@ -197,7 +197,7 @@ export const VectorDBConfigForm: React.FC = () => {
 
           {success && (
             <div className='mt-2'>
-              <p className='text-xs font-medium text-green-500'>
+              <p className='text-xs font-medium text-primary'>
                 Vector database configuration updated successfully!
               </p>
             </div>

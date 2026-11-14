@@ -130,6 +130,7 @@ See **[QUICKSTART.md](QUICKSTART.md)** for the full local-setup walkthrough, and
 | [docs/architecture.md](docs/architecture.md)   | Component diagram, state management, Socket.IO integration           |
 | [CONTRIBUTING.md](CONTRIBUTING.md)             | Issues, pull requests, coding standards                              |
 | [docs/RULES.md](docs/RULES.md)                 | Project-specific conventions and constraints                         |
+| [docs/gt-documentation.md](docs/gt-documentation.md) | Maintain GT account help, the user manual and training |
 | [CHANGELOG.md](CHANGELOG.md)                   | Release notes                                                        |
 | [SECURITY.md](SECURITY.md)                     | Vulnerability disclosure process                                     |
 

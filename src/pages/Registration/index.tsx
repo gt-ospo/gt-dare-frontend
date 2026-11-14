@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import AuthCard from '../../components/Auth/AuthCard'
 import AuthFormFooter from '../../components/Auth/AuthFormFooter'
 import { AppDispatch } from '../../redux/store'
-import { toggleMode } from '../../redux/themeSlice'
 import { userRegister } from '../../redux/asyncThunks/user'
 import {
   SignupFormValues,
@@ -12,8 +11,6 @@ import {
   signupValidationSchema,
 } from './validation'
 import { resetError } from '../../redux/userSlice'
-import { Button } from '../../components/ui/button'
-import { Moon, Sun } from 'lucide-react'
 
 const RegistrationScreen: React.FC = () => {
   const navigate = useNavigate()
@@ -50,10 +47,6 @@ const RegistrationScreen: React.FC = () => {
     }
   }
 
-  const toggleTheme = () => {
-    dispatch(toggleMode())
-  }
-
   const formikConfig = {
     initialValues: signupInitialValues,
     validationSchema: signupValidationSchema,
@@ -74,13 +67,6 @@ const RegistrationScreen: React.FC = () => {
 
   return (
     <>
-      <div className='fixed top-6 right-6 z-10'>
-        <Button variant='outline' size='icon' onClick={toggleTheme}>
-          <Sun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90' />
-          <Moon className='absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0' />
-          <span className='sr-only'>Toggle theme</span>
-        </Button>
-      </div>
       <AuthCard<SignupFormValues>
         title='Create Account'
         subtitle='Have an invitation code? Enter it below. Otherwise, leave it blank to request administrator approval. Both signup paths require email verification.'
