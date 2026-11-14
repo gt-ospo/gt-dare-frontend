@@ -9,11 +9,13 @@ import { toggleMode } from '@/redux/themeSlice'
 interface PublicLayoutProps {
   children: ReactNode
   showResourcesLink?: boolean
+  wide?: boolean
 }
 
 const PublicLayout = ({
   children,
   showResourcesLink = false,
+  wide = false,
 }: PublicLayoutProps) => {
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
@@ -26,7 +28,9 @@ const PublicLayout = ({
       >
         Skip to content
       </a>
-      <header className='mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-10 print:hidden'>
+      <header
+        className={`mx-auto flex w-full flex-wrap items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-10 print:hidden ${wide ? 'max-w-[1760px] xl:w-[96%]' : 'max-w-[1440px]'}`}
+      >
         <Link
           to='/'
           aria-label='GT OSPO and DARE home'
@@ -38,6 +42,13 @@ const PublicLayout = ({
           aria-label='Public navigation'
           className='flex items-center gap-4 sm:gap-6'
         >
+          <Link
+            to='/training'
+            aria-current={pathname === '/training' ? 'page' : undefined}
+            className='inline-flex min-h-11 items-center rounded-sm text-sm font-semibold text-primary underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+          >
+            Start here
+          </Link>
           <Link
             to='/access-help'
             aria-current={
@@ -84,7 +95,9 @@ const PublicLayout = ({
       >
         {children}
       </div>
-      <footer className='mx-auto mt-8 flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-4 border-t border-border px-5 py-5 text-xs text-muted-foreground sm:px-8 print:hidden'>
+      <footer
+        className={`mx-auto mt-8 flex w-full flex-wrap items-center justify-between gap-4 border-t border-border px-5 py-5 text-xs text-muted-foreground sm:px-8 print:hidden ${wide ? 'max-w-[1760px] xl:w-[96%]' : 'max-w-[1440px]'}`}
+      >
         <div className='w-full space-y-3 border-b border-border pb-4'>
           <a
             href='https://dare.cmu.edu/'

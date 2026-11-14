@@ -4,9 +4,11 @@ Connect to GT-DARE, create your account and resolve sign-in problems.
 
 ## Connect to GT-DARE
 
-Open [GT-DARE](http://gt-dare.pace.gatech.edu:5173/). When off campus, connect to
-the Georgia Tech VPN first. If you cannot reach the site while connected, contact
-GT-OSPO for connection help.
+When off campus, connect using the GlobalProtect app before opening
+[GT-DARE](https://gt-dare.pace.gatech.edu:5173/). Need the app? Download it from the
+[Georgia Tech VPN portal](https://vpn.gatech.edu/). Opening the portal alone does
+not connect your computer. If the site still does not open after connecting,
+contact GT-OSPO for help.
 
 The home address opens the login page. If you are already signed in, it opens
 your dashboard, or onboarding if you have not completed it.
@@ -90,7 +92,7 @@ one. Never send your password to an administrator or include it in a support ema
 
 ## Resolve common problems
 
-- **The site does not open:** check the hostname, port 5173 and VPN connection.
+- **The site does not open:** check your VPN connection, then try [opening GT-DARE](https://gt-dare.pace.gatech.edu:5173/) again.
   If it still fails, contact GT-OSPO to confirm network access.
 - **No verification or invitation email:** check spam/junk and the address you
   entered. Use the verification **Resend** control where offered. Contact GT-OSPO

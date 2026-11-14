@@ -1,0 +1,98 @@
+/* Course surfaces use the existing brand and theme tokens. */
+.training-hero {
+  position: relative;
+  isolation: isolate;
+  color: var(--dare-foreground);
+}
+.training-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 100% 0%,
+    transparent 35%,
+    color-mix(in srgb, var(--dare-foreground) 7%, transparent) 35.2%,
+    transparent 35.5%,
+    transparent 53%,
+    color-mix(in srgb, var(--dare-foreground) 5%, transparent) 53.2%,
+    transparent 53.5%
+  );
+}
+.training-hero-kicker {
+  color: var(--dare-foreground);
+}
+.training-hero-copy {
+  color: color-mix(in srgb, var(--dare-foreground) 84%, transparent);
+}
+.training-hero-link {
+  border: 1px solid color-mix(in srgb, var(--dare-foreground) 35%, transparent);
+  background: color-mix(in srgb, var(--dare-foreground) 10%, transparent);
+}
+.training-hero-link:hover,
+.training-phase:hover {
+  background: color-mix(in srgb, var(--dare-foreground) 18%, transparent);
+}
+.training-progress {
+  background: color-mix(in srgb, var(--background) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--dare-foreground) 18%, transparent);
+}
+.training-progress-bar {
+  accent-color: var(--dare-foreground);
+}
+.training-progress-bar::-webkit-progress-bar {
+  background: color-mix(in srgb, var(--dare-foreground) 20%, transparent);
+  border-radius: 999px;
+}
+.training-progress-bar::-webkit-progress-value {
+  background: var(--dare-foreground);
+  border-radius: 999px;
+}
+.training-progress-bar::-moz-progress-bar {
+  background: var(--dare-foreground);
+  border-radius: 999px;
+}
+.training-phase {
+  border-top: 1px solid
+    color-mix(in srgb, var(--dare-foreground) 23%, transparent);
+}
+.training-nav-current {
+  color: var(--dare-foreground);
+}
+.training-step-number {
+  background: color-mix(in srgb, var(--muted-foreground) 10%, transparent);
+}
+.training-nav-current .training-step-number {
+  background: color-mix(in srgb, var(--dare-foreground) 20%, transparent);
+}
+.training-callout {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--dare) 10%, var(--card));
+}
+.training-article {
+  border-top: 3px solid color-mix(in srgb, var(--brand-to) 60%, var(--border));
+}
+.training-practice {
+  border-left: 3px solid var(--dare);
+}
+.training-checkpoint {
+  border-top: 3px solid var(--brand-to);
+}
+.training-hero :is(a, button):focus-visible {
+  outline: 2px solid var(--dare-foreground);
+  outline-offset: 3px;
+}
+
+.training-image-pin {
+  transform: translate(-50%, -120%);
+}
+.training-image-pin::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--dare);
+}

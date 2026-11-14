@@ -127,6 +127,18 @@ const Help = () => {
           <CardContent>
             <div className='space-y-4'>
               <Link
+                to='/help/training'
+                className='block rounded-lg border border-border p-4 text-foreground transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
+              >
+                <h3 className='font-medium'>
+                  Start here — self-guided training
+                </h3>
+                <p className='mt-1 text-sm text-muted-foreground'>
+                  Eight lessons with screenshots, practice questions, a sample
+                  document and progress you can resume.
+                </p>
+              </Link>
+              <Link
                 to='/help/user-guide'
                 className='block rounded-lg border border-border p-4 text-foreground transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
               >
