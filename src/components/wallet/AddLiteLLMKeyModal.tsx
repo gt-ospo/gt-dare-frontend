@@ -22,12 +22,19 @@ import { BackgroundModelSelect } from './BackgroundModelSelect'
 
 type Step =
   | { kind: 'connection'; error?: string }
-  | { kind: 'model'; models: string[]; recommendedModels: string[] }
+  | {
+      kind: 'model'
+      models: string[]
+      chatModels: string[]
+      recommendedModels: string[]
+    }
 
 interface AddLiteLLMKeyModalProps {
   open: boolean
   onClose: () => void
 }
+
+const SPIN_BASE_URL = 'https://spin.pace.gatech.edu:4000/v1'
 
 const schema = Yup.object({
   label: Yup.string()
@@ -78,7 +85,11 @@ export const AddLiteLLMKeyModal: React.FC<AddLiteLLMKeyModalProps> = ({
     try {
       const res = await testLiteLLMUnsavedAPI(values.baseUrl, values.apiKey)
       return res.ok
-        ? { models: res.models, recommendedModels: res.recommendedModels }
+        ? {
+            models: res.models,
+            chatModels: res.chatModels ?? res.models,
+            recommendedModels: res.recommendedModels,
+          }
         : { error: res.error || 'Connection failed — check the proxy.' }
     } catch (err) {
       return {
@@ -137,6 +148,7 @@ export const AddLiteLLMKeyModal: React.FC<AddLiteLLMKeyModalProps> = ({
             touched,
             isSubmitting,
             setFieldValue,
+            setValues,
             values,
             validateForm,
             setTouched,
@@ -144,6 +156,41 @@ export const AddLiteLLMKeyModal: React.FC<AddLiteLLMKeyModalProps> = ({
             <Form className='space-y-4'>
               {step.kind === 'connection' && (
                 <>
+                  <div className='rounded-md border border-border bg-muted/40 p-3'>
+                    <div className='flex flex-wrap items-center justify-between gap-2'>
+                      <div>
+                        <p className='text-sm font-medium'>Using SPIN?</p>
+                        <p className='text-xs text-muted-foreground'>
+                          Fill in the SPIN address, then enter your own key.
+                        </p>
+                        {values.apiKey && values.baseUrl !== SPIN_BASE_URL && (
+                          <p className='text-xs text-muted-foreground'>
+                            Selecting SPIN clears the key entered for the other
+                            address.
+                          </p>
+                        )}
+                      </div>
+                      <Button
+                        type='button'
+                        variant='outline'
+                        size='sm'
+                        onClick={() =>
+                          void setValues({
+                            ...values,
+                            label: 'SPIN',
+                            baseUrl: SPIN_BASE_URL,
+                            apiKey:
+                              values.baseUrl !== SPIN_BASE_URL
+                                ? ''
+                                : values.apiKey,
+                          })
+                        }
+                      >
+                        Use SPIN settings
+                      </Button>
+                    </div>
+                  </div>
+
                   <div className='space-y-1.5'>
                     <Label htmlFor='litellm-label'>Label</Label>
                     <Field
@@ -208,7 +255,7 @@ export const AddLiteLLMKeyModal: React.FC<AddLiteLLMKeyModalProps> = ({
                   </p>
                   <BackgroundModelSelect
                     id='litellm-background-model'
-                    models={step.models}
+                    models={step.chatModels}
                     recommendedModels={step.recommendedModels}
                     value={values.backgroundModel}
                     onChange={(model) =>

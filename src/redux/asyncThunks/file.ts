@@ -21,9 +21,14 @@ import {
   togglePublicShareAPI,
   startFileOcrRunAPI,
   getVisionModelsAPI,
+  getEmbeddingModelsAPI,
   updateVisionModelAPI,
 } from '../../api/files'
-import { MyFile, FileReprocessingRequest } from '../types/files'
+import {
+  MyFile,
+  FileReprocessingRequest,
+  EmbeddingSelection,
+} from '../types/files'
 import { DocumentProcessingMode } from '@/utils/constants/file'
 
 const BATCH_SIZE = 5
@@ -51,6 +56,17 @@ export const fetchVisionModels = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await getVisionModelsAPI()
+    } catch (error) {
+      return thunkAPI.rejectWithValue((error as Error).message)
+    }
+  }
+)
+
+export const fetchEmbeddingModels = createAsyncThunk(
+  'files/fetchEmbeddingModels',
+  async (_, thunkAPI) => {
+    try {
+      return await getEmbeddingModelsAPI()
     } catch (error) {
       return thunkAPI.rejectWithValue((error as Error).message)
     }
@@ -102,10 +118,12 @@ export const uploadNewFile = createAsyncThunk(
       files,
       tags,
       processingMode = DocumentProcessingMode.Advanced,
+      embedding,
     }: {
       files: File[]
       tags: number[]
       processingMode?: DocumentProcessingMode
+      embedding?: EmbeddingSelection
     },
     thunkAPI
   ) => {
@@ -119,6 +137,12 @@ export const uploadNewFile = createAsyncThunk(
       for (const batch of batches) {
         const formData = new FormData()
         formData.append('processing_mode', processingMode)
+        if (embedding && embedding.model !== 'granite') {
+          formData.append('embedding_model', embedding.model)
+          if (embedding.connectionId) {
+            formData.append('embedding_connection_id', embedding.connectionId)
+          }
+        }
         batch.forEach((file) => {
           formData.append('files', file)
           formData.append('names', file.name)

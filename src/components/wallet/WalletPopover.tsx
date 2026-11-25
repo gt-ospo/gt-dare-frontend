@@ -15,7 +15,7 @@ import { AddLiteLLMKeyModal } from './AddLiteLLMKeyModal'
 import { AddBYOKeyModal } from './AddBYOKeyModal'
 import { EditLiteLLMBackgroundModelModal } from './EditLiteLLMBackgroundModelModal'
 import { useFeatureFlag } from '@/hooks/useFeatureFlag'
-import { needsBackgroundModel } from '@/utils/wallets'
+import { formatWalletBalance, needsBackgroundModel } from '@/utils/wallets'
 import {
   AlertTriangle,
   CreditCard as CreditCardIcon,
@@ -57,7 +57,7 @@ export const WalletPopover: React.FC = () => {
   const triggerLabel = active?.label ?? 'DARE Wallet'
   const triggerSecondary =
     active?.status.kind === 'BALANCE'
-      ? `$${parseFloat(active.status.balance).toFixed(2)}`
+      ? formatWalletBalance(active.status.balance)
       : 'External'
 
   return (
@@ -78,7 +78,11 @@ export const WalletPopover: React.FC = () => {
                 />
               )}
             </span>
-            <span className='font-semibold text-foreground tabular-nums'>
+            <span
+              aria-live='polite'
+              aria-atomic='true'
+              className='font-semibold text-foreground tabular-nums'
+            >
               {triggerSecondary}
             </span>
             <span className='hidden h-3 w-px bg-border sm:inline-block' />

@@ -18,6 +18,7 @@ import {
   getSharedFiles,
   importSharedFile,
   fetchVisionModels,
+  fetchEmbeddingModels,
   updateVisionModel,
   shareFileWithUser,
   togglePublicShare,
@@ -220,6 +221,22 @@ const fileSlice = createSlice({
       .addCase(fetchVisionModels.fulfilled, (state, action) => {
         state.visionModels = action.payload
         state.visionModelsError = null
+      })
+      .addCase(fetchEmbeddingModels.pending, (state, action) => {
+        state.embeddingModelsRequest = action.meta.requestId
+        state.embeddingModels = null
+        state.embeddingModelsError = null
+      })
+      .addCase(fetchEmbeddingModels.fulfilled, (state, action) => {
+        if (state.embeddingModelsRequest !== action.meta.requestId) return
+        state.embeddingModelsRequest = null
+        state.embeddingModels = action.payload
+      })
+      .addCase(fetchEmbeddingModels.rejected, (state, action) => {
+        if (state.embeddingModelsRequest !== action.meta.requestId) return
+        state.embeddingModelsRequest = null
+        state.embeddingModelsError =
+          (action.payload as string) || 'Could not load embedding models'
       })
       .addCase(fetchVisionModels.rejected, (state, action) => {
         state.visionModelsError =

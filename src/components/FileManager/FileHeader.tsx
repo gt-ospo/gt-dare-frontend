@@ -13,7 +13,12 @@ import {
 } from '../../redux/fileSlice'
 import { MediaTypeFilter, FileView } from '../../redux/types/files'
 import ViewToggle from './ViewToggle'
-import { deleteMultipleFiles, getFolders } from '../../redux/asyncThunks/file'
+import {
+  deleteMultipleFiles,
+  getFiles,
+  getFolders,
+} from '../../redux/asyncThunks/file'
+import { toast } from '@/utils/toast'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { RootState, AppDispatch } from '../../redux/store'
@@ -101,6 +106,12 @@ const FileHeader: React.FC<FileHeaderProps> = ({ onToggleView }) => {
       setShowDeleteConfirmation(false)
     } catch (error) {
       console.error('Failed to delete files:', error)
+      toast.error(
+        'Could not delete all files. Check the remaining files, then try again or contact support.'
+      )
+      dispatch(getFiles())
+      dispatch(getFolders())
+      dispatch(clearSelectedItems())
       setShowDeleteConfirmation(false)
     }
   }

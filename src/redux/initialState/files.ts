@@ -28,4 +28,7 @@ export const initialState: FileState = {
   shareModalFileName: '',
   visionModels: null,
   visionModelsError: null,
+  embeddingModels: null,
+  embeddingModelsError: null,
+  embeddingModelsRequest: null,
 }

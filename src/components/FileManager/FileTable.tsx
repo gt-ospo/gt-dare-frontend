@@ -3,7 +3,8 @@ import { getFileProp } from '@/utils/sortUtils'
 import { useState, useMemo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState, AppDispatch } from '../../redux/store'
-import { deleteFile, getFolders } from '../../redux/asyncThunks/file'
+import { deleteFile, getFiles, getFolders } from '../../redux/asyncThunks/file'
+import { toast } from '@/utils/toast'
 import {
   addSelectedItem,
   removeSelectedItem,
@@ -178,6 +179,10 @@ const FileTable = () => {
         dispatch(getFolders())
       } catch (error) {
         console.error('Failed to delete file:', error)
+        toast.error(
+          'Could not delete the file. Try again later or contact support.'
+        )
+        dispatch(getFiles())
       }
     }
     setDeleteFileId(null)
@@ -323,6 +328,7 @@ const FileTable = () => {
                 tags,
                 status,
                 errorMessage,
+                spinIndexUnavailable,
                 failedImageCount,
                 processingStage,
                 ocr,
@@ -396,14 +402,25 @@ const FileTable = () => {
                   </TableCell>
                   <TableCell className='p-4'>
                     {getStatusDisplay(status, errorMessage, processingStage)}
-                    {status === FileStatus.PROCESSED && errorMessage && (
+                    {spinIndexUnavailable && (
                       <p
                         role='status'
                         className='mt-1 max-w-xs text-xs text-destructive'
                       >
-                        {errorMessage}
+                        {errorMessage ||
+                          'Document search may be unavailable. Reprocess using Basic to restore it.'}
                       </p>
                     )}
+                    {status === FileStatus.PROCESSED &&
+                      errorMessage &&
+                      !spinIndexUnavailable && (
+                        <p
+                          role='status'
+                          className='mt-1 max-w-xs text-xs text-destructive'
+                        >
+                          {errorMessage}
+                        </p>
+                      )}
                     {!!failedImageCount && status !== FileStatus.PROCESSING && (
                       <p className='mt-1 text-xs text-muted-foreground'>
                         {failedImageCount} image descriptions failed

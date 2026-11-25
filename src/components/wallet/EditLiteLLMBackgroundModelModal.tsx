@@ -51,7 +51,7 @@ export const EditLiteLLMBackgroundModelModal: React.FC<Props> = ({
           return
         }
 
-        setModels(response.models)
+        setModels(response.chatModels ?? response.models)
         setRecommendedModels(response.recommendedModels)
         setBackgroundModel(
           (current) => current || response.recommendedModels[0] || ''

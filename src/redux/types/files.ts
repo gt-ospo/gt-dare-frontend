@@ -41,6 +41,9 @@ export interface MyFile {
   pageCount?: number | null
   pagesWithoutText?: number
   processingMode?: DocumentProcessingMode
+  embeddingModel?: string
+  embeddingConnectionId?: string | null
+  spinIndexUnavailable?: boolean
   parserName?: DocumentParser | null
   structureCounts?: DocumentCounts | null
   ocr?: FileOcrPlan | null
@@ -80,6 +83,21 @@ export interface VisionModelCandidate {
 export interface VisionModelCatalog {
   models: VisionModelCandidate[]
   selected: string
+}
+
+export interface EmbeddingConnection {
+  id: string
+  label: string
+  models: { id: string; name: string }[]
+}
+
+export interface EmbeddingModelCatalog {
+  connections: EmbeddingConnection[]
+}
+
+export interface EmbeddingSelection {
+  model: string
+  connectionId?: string
 }
 
 export interface DocumentCounts {
@@ -322,6 +340,9 @@ export interface FileState {
   shareModalFileName: string
   visionModels: VisionModelCatalog | null
   visionModelsError: string | null
+  embeddingModels: EmbeddingModelCatalog | null
+  embeddingModelsError: string | null
+  embeddingModelsRequest: string | null
 }
 
 export interface FolderHeaderProps {

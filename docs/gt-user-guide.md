@@ -310,7 +310,32 @@ The **DARE Wallet** records allocated usage credit. Its displayed dollar balance
 1. Open the wallet control in the header and check the selected wallet.
 2. Open [**Cost Tracking**](/billing/) and inspect the transaction history.
 3. After one small conversation, find its usage entry. Review the model, input/output tokens and recorded amount.
-4. Compare the amount with the balance change. Check for other transactions if the difference includes more than that one request.
+4. For an individual response, check the cost beneath it in the conversation or open its information panel.
+
+Balances show two decimal places. Small charges still reduce your credit even when the rounded balance looks unchanged. The cost beneath a response is also rounded; use Cost Tracking for the recorded amount and tokens. A completed response refreshes the wallet and usage totals.
+
+### Connect your SPIN account
+
+SPIN provides its own monthly token allowance for each user. To use its chat models in GT-DARE, connect your own SPIN key:
+
+1. Connect to the Georgia Tech VPN and open [SPIN](https://spin.pace.gatech.edu/). Sign in and use **Your Keys** to get your key.
+
+   ![SPIN home page with Your Keys in the top navigation.](/manual-assets/spin-home.jpg)
+
+2. In GT-DARE, open [**Cost Tracking**](/billing/) and choose **Add LiteLLM Key**.
+3. Choose **Use SPIN settings** to fill in the label and base URL. You can also enter `SPIN` as the label and `https://spin.pace.gatech.edu:4000/v1` as the base URL yourself. Enter your SPIN key, then choose **Next** to test the connection.
+4. Leave **Use the DARE default** selected for the background model and choose **Save**. Select **SPIN** in the wallet list.
+5. Open [**Conversations**](/conversation/), start a new chat and choose `gemma-4-26B` or `gemma-4-26B-long` from **Select Model**.
+
+To use a SPIN model for document search, open [**Sources**](/files), choose **Upload File**, and select `EmbeddingGemma 2` or `Nemotron 3.5 Embed 8B` with your SPIN connection under **Document search model**. Upload the document and wait for processing to finish. In a conversation, select the document under **Embeddings** to search its passages. The chat model and document search model are separate choices.
+
+SPIN document processing and searches use your own SPIN allowance. The feature depends on your account's storage setup; contact support if it is unavailable. Other people opening a shared conversation or workflow cannot use your key to search that document. A SPIN document keeps its chosen search model when reprocessed. For now, use Basic to reprocess it; Advanced reprocessing and continuing scanned-page processing after an index is created are unavailable. You can also upload the document again.
+
+If you delete the SPIN connection or its key stops working, add your new key in Cost Tracking and upload the original document again with the new connection. The existing SPIN index remains tied to its original connection.
+
+Wait for document processing to finish before deleting a SPIN document. If deletion does not complete, try again later or contact support.
+
+Check your SPIN token balance and reset date under **Your Usage** in SPIN. GT-DARE's Cost Tracking lists conversation tokens for the SPIN wallet; the displayed estimated cost is not your SPIN token balance. To use the DARE Wallet again, select it in the wallet control. Keep your SPIN key private.
 
 ### Understand tokens and rates
 
