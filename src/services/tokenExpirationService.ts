@@ -117,11 +117,12 @@ export class TokenExpirationService {
         includeAuthToken: true,
       })
 
-      if (response.status === 'valid') {
-        return
+      if (response.status === 'invalid') {
+        this.handleTokenExpiration()
       }
     } catch {
-      this.handleTokenExpiration()
+      // Authenticated 401s are handled by baseRequest. A failed health request
+      // alone does not prove expiry; leave monitoring active for the next poll.
     }
   }
 

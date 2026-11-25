@@ -353,7 +353,7 @@ export const lessons: Lesson[] = [
       'Cost Tracking shows recorded transactions and token information available for your account.',
     ],
     steps: [
-      'Open the wallet control and identify the selected wallet. Open Cost Tracking and inspect any recorded model or token usage. Small changes may not show in the rounded header balance.',
+      'Open the wallet control and identify the selected wallet. Open Cost Tracking and inspect any recorded model or token usage. Balances show up to six decimal places so small recorded charges remain visible.',
       'Your questions, earlier messages, document text and answers can count toward token usage. Available credit and rates depend on the model and wallet you use.',
       'Open User Manual for detailed tasks, or Help & support for model information. Choose your next topic below.',
       'If you need support, email gt-ospo@gatech.edu with your account email, action, model name, time and exact error. Hide passwords, keys, invitation codes and verification/reset links in screenshots.',
