@@ -43,22 +43,30 @@ const TextInput: React.FC<TextInputProps> = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className={`w-full border ${error ? 'border-red-500' : 'border-border'} rounded-md bg-input px-3 py-2 text-foreground`}
+          className={`w-full border ${error ? 'border-destructive' : 'border-border'} rounded-md bg-input px-3 py-2 text-foreground ${type === 'password' ? 'pr-12' : ''}`}
         />
         {type === 'password' && (
-          <div
-            className='absolute inset-y-0 right-3 flex cursor-pointer items-center'
+          <button
+            type='button'
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-pressed={showPassword}
+            className='absolute inset-y-0 right-0 flex w-11 cursor-pointer items-center justify-center rounded-r-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
             onClick={togglePasswordVisibility}
           >
             {showPassword ? (
-              <EyeSlashIcon className='h-5 w-5 text-foreground' />
+              <EyeSlashIcon
+                className='h-5 w-5 text-foreground'
+                aria-hidden='true'
+              />
             ) : (
-              <EyeIcon className='h-5 w-5 text-foreground' />
+              <EyeIcon className='h-5 w-5 text-foreground' aria-hidden='true' />
             )}
-          </div>
+          </button>
         )}
       </div>
-      {error && <p className='mt-1 text-xs text-red-500'>{String(error)}</p>}
+      {error && (
+        <p className='mt-1 text-xs text-destructive'>{String(error)}</p>
+      )}
     </div>
   )
 }

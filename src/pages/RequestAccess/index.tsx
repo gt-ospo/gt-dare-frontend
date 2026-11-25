@@ -1,3 +1,4 @@
+import PublicLayout from '@/components/Auth/PublicLayout'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,11 +21,13 @@ const RequestAccessScreen = () => {
     void dispatch(requestAccess({ name, email, reason }))
   }
 
-  return (
-    <main className='flex min-h-screen items-center justify-center bg-background px-5 py-12 text-foreground'>
-      <section className='w-full max-w-lg space-y-6 rounded-xl border border-border bg-card p-7 text-card-foreground shadow-sm'>
-        <h1 className='text-2xl font-semibold'>Request access to DARE</h1>
-        <p className='text-sm text-muted-foreground'>
+  const content = (
+    <main className='flex items-center justify-center bg-background px-5 py-12 text-foreground'>
+      <section className='w-full max-w-lg space-y-6 rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm sm:p-8'>
+        <h1 className='text-2xl leading-tight font-semibold tracking-tight sm:text-3xl'>
+          Request access to DARE
+        </h1>
+        <p className='text-base leading-relaxed text-muted-foreground'>
           An administrator will review your request. If approved, we will email
           a single-use signup code to you. After registration, you will still
           need to verify your email address.
@@ -33,7 +36,7 @@ const RequestAccessScreen = () => {
           <div role='status' className='space-y-3'>
             <CheckCircle2 className='h-6 w-6 text-primary' aria-hidden='true' />
             <p>{response.detail}</p>
-            <p className='text-sm text-muted-foreground'>
+            <p className='text-base leading-relaxed text-muted-foreground'>
               You do not have an account yet. Please wait for your invitation
               before registering.
             </p>
@@ -53,7 +56,7 @@ const RequestAccessScreen = () => {
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 disabled={loading}
-                className='w-full rounded-md border border-input bg-background px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-50'
+                className='min-h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-50'
               />
             </div>
             <div className='space-y-1'>
@@ -70,7 +73,7 @@ const RequestAccessScreen = () => {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 disabled={loading}
-                className='w-full rounded-md border border-input bg-background px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-50'
+                className='min-h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-50'
               />
             </div>
             <div className='space-y-1'>
@@ -85,7 +88,7 @@ const RequestAccessScreen = () => {
                 value={reason}
                 onChange={(event) => setReason(event.target.value)}
                 disabled={loading}
-                className='w-full rounded-md border border-input bg-background px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-50'
+                className='min-h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:opacity-50'
               />
             </div>
             {error && (
@@ -116,6 +119,8 @@ const RequestAccessScreen = () => {
       </section>
     </main>
   )
+
+  return <PublicLayout>{content}</PublicLayout>
 }
 
 export default RequestAccessScreen

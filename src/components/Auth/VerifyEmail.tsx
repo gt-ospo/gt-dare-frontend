@@ -89,7 +89,7 @@ const VerifyEmailScreen = () => {
       )}
 
       {successMessage && (
-        <div className='flex flex-col items-center gap-2 text-sm text-green-500'>
+        <div className='flex flex-col items-center gap-2 text-sm text-primary'>
           <p>{successMessage}</p>
           <p className='text-center text-muted-foreground'>
             {!searchParams.get('callbackurl') && localStorage.getItem('token')

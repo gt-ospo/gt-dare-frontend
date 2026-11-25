@@ -1,3 +1,4 @@
+import PublicLayout from '@/components/Auth/PublicLayout'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -56,15 +57,15 @@ const OnboardingScreen: React.FC = () => {
     }
   }
 
-  return (
-    <div className='flex min-h-screen items-center justify-center bg-background px-4'>
+  const content = (
+    <main className='mx-auto w-full max-w-2xl px-5 py-6 sm:px-8'>
       <div className='w-full max-w-2xl'>
-        <div className='rounded-lg border bg-card p-8 shadow-xs'>
+        <div className='rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8'>
           <div className='mb-6'>
-            <h1 className='text-2xl font-bold text-foreground'>
+            <h1 className='text-2xl leading-tight font-semibold tracking-tight text-foreground sm:text-3xl'>
               Tell us about yourself
             </h1>
-            <p className='mt-2 text-sm text-muted-foreground'>
+            <p className='mt-2 text-base leading-relaxed text-muted-foreground'>
               Help us personalize your DARE experience
             </p>
           </div>
@@ -179,8 +180,10 @@ const OnboardingScreen: React.FC = () => {
           </Formik>
         </div>
       </div>
-    </div>
+    </main>
   )
+
+  return <PublicLayout>{content}</PublicLayout>
 }
 
 export default OnboardingScreen
