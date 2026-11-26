@@ -10,16 +10,12 @@ import {
 } from '../../redux/fileSlice'
 import {
   fetchVisionModels,
-  fetchEmbeddingModels,
   getFiles,
   updateVisionModel,
   uploadNewFile,
 } from '../../redux/asyncThunks/file'
 import VisionModelSelect from './VisionModelSelect'
 import DocumentProcessingSelect from './DocumentProcessingSelect'
-import EmbeddingModelSelect from './EmbeddingModelSelect'
-import { EmbeddingSelection } from '@/redux/types/files'
-import { isEmbeddingAvailable } from '@/utils/embedding'
 import { toast } from '@/utils/toast'
 import { addTag, getTags } from '../../redux/asyncThunks/tag'
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/solid'
@@ -58,9 +54,6 @@ const FileUploadModal: React.FC = () => {
   const [processingMode, setProcessingMode] = useState<DocumentProcessingMode>(
     DocumentProcessingMode.Advanced
   )
-  const [embedding, setEmbedding] = useState<EmbeddingSelection>({
-    model: 'granite',
-  })
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [fileErrors, setFileErrors] = useState<string[]>([])
   const [newTag, setNewTag] = useState<string>('')
@@ -74,7 +67,6 @@ const FileUploadModal: React.FC = () => {
     error,
     visionModels,
     visionModelsError,
-    embeddingModels,
   } = useSelector((state: RootState) => state.files)
 
   useEffect(() => {
@@ -85,7 +77,6 @@ const FileUploadModal: React.FC = () => {
     if (isModalOpen) {
       dispatch(fetchChunkSettings())
       dispatch(fetchVisionModels())
-      dispatch(fetchEmbeddingModels())
     }
   }, [dispatch, isModalOpen])
 
@@ -109,14 +100,12 @@ const FileUploadModal: React.FC = () => {
           files: selectedFiles,
           tags: selectedTags,
           processingMode,
-          embedding,
         })
       ).unwrap()
       dispatch(resetSelectedTags())
       dispatch(closeModal())
       dispatch(getFiles())
       setSelectedFiles([])
-      setEmbedding({ model: 'granite' })
       setFileErrors([])
       dispatch(setError(''))
     } else {
@@ -189,7 +178,6 @@ const FileUploadModal: React.FC = () => {
           setSelectedFiles([])
           setFileErrors([])
           setIsChunkPopoverOpen(false)
-          setEmbedding({ model: 'granite' })
           dispatch(closeModal())
         }
       }}
@@ -332,9 +320,9 @@ const FileUploadModal: React.FC = () => {
             </p>
           </div>
 
-          {(embeddingModels || embedding.model !== 'granite') && (
-            <EmbeddingModelSelect value={embedding} onChange={setEmbedding} />
-          )}
+          <p className='text-xs text-muted-foreground'>
+            New documents use IBM Granite for document search.
+          </p>
 
           <div
             className={`border-2 border-dashed ${
@@ -489,11 +477,7 @@ const FileUploadModal: React.FC = () => {
           </Button>
           <Button
             onClick={handleUploadClick}
-            disabled={
-              selectedFiles.length === 0 ||
-              loading ||
-              !isEmbeddingAvailable(embedding, embeddingModels)
-            }
+            disabled={selectedFiles.length === 0 || loading}
           >
             {loading ? 'Uploading...' : 'Upload files'}
           </Button>

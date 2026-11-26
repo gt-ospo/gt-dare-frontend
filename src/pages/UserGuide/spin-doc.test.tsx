@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router-dom/server'
 import GuideArticle from '@/components/Documentation/GuideArticle'
 import { manualTopics } from './topics'
 
-it('explains both SPIN document models and their connection limits', () => {
+it('explains fixed new-document search and existing SPIN documents', () => {
   const topic = manualTopics.find(
     (entry) => entry.id === 'wallets-and-cost-tracking'
   )
@@ -19,8 +19,11 @@ it('explains both SPIN document models and their connection limits', () => {
       />
     </StaticRouter>
   )
-  expect(html).toContain('EmbeddingGemma 2')
-  expect(html).toContain('Nemotron 3.5 Embed 8B')
-  expect(html).toContain('href="/files"')
-  expect(html).toContain('upload the original document again')
+  expect(html).toContain('New uploads use IBM Granite')
+  expect(html).toContain('original personal SPIN connection')
+  expect(html).toContain('choose Basic for a SPIN document')
+  expect(html).toContain('upload the original file again')
+  expect(html).toContain('gemma-4-26B')
+  expect(html).not.toContain('EmbeddingGemma 2')
+  expect(html).not.toContain('Nemotron 3.5 Embed 8B')
 })

@@ -327,11 +327,11 @@ SPIN provides its own monthly token allowance for each user. To use its chat mod
 4. Leave **Use the DARE default** selected for the background model and choose **Save**. Select **SPIN** in the wallet list.
 5. Open [**Conversations**](/conversation/), start a new chat and choose `gemma-4-26B` or `gemma-4-26B-long` from **Select Model**.
 
-To use a SPIN model for document search, open [**Sources**](/files), choose **Upload File**, and select `EmbeddingGemma 2` or `Nemotron 3.5 Embed 8B` with your SPIN connection under **Document search model**. Upload the document and wait for processing to finish. In a conversation, select the document under **Embeddings** to search its passages. The chat model and document search model are separate choices.
+New uploads use IBM Granite for document search. Your SPIN chat model is a separate choice.
 
-SPIN document processing and searches use your own SPIN allowance. The feature depends on your account's storage setup; contact support if it is unavailable. Other people opening a shared conversation or workflow cannot use your key to search that document. A SPIN document keeps its chosen search model when reprocessed. For now, use Basic to reprocess it; Advanced reprocessing and continuing scanned-page processing after an index is created are unavailable. You can also upload the document again.
+If you uploaded a SPIN-indexed document before this change, you can continue searching it with the original personal SPIN connection and token allowance. Other people cannot use your key to search it through a shared conversation or workflow. Reprocessing keeps the document's existing model and connection; choose Basic for a SPIN document. Advanced reprocessing and continuing scanned-page processing after an index is created are not available for these documents.
 
-If you delete the SPIN connection or its key stops working, add your new key in Cost Tracking and upload the original document again with the new connection. The existing SPIN index remains tied to its original connection.
+If the original SPIN connection is unavailable, contact support. You can also upload the original file again to create a separate IBM Granite document. Keep the original file; exports do not include uploaded files or their search indexes.
 
 Wait for document processing to finish before deleting a SPIN document. If deletion does not complete, try again later or contact support.
 
