@@ -13,6 +13,7 @@ import {
   MyFolder,
   VisionModelCatalog,
   VisionModelCandidate,
+  EmbeddingModelCatalog,
 } from '@/redux/types/files'
 import { FileStatus } from '@/utils/constants/file'
 
@@ -79,6 +80,12 @@ export const getVisionModelsAPI = async (): Promise<VisionModelCatalog> => {
   })
   return parseVisionModelCatalog(response)
 }
+
+export const getEmbeddingModelsAPI = async (): Promise<EmbeddingModelCatalog> =>
+  baseRequest<EmbeddingModelCatalog>({
+    url: 'api/files/embedding-models/',
+    method: METHOD.GET,
+  })
 
 export const updateVisionModelAPI = async (
   modelIdentifier: string

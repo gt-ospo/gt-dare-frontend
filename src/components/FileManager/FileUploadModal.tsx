@@ -320,6 +320,10 @@ const FileUploadModal: React.FC = () => {
             </p>
           </div>
 
+          <p className='text-xs text-muted-foreground'>
+            New documents use IBM Granite for document search.
+          </p>
+
           <div
             className={`border-2 border-dashed ${
               error

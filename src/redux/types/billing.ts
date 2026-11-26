@@ -104,6 +104,7 @@ export interface SetActiveWalletResponse {
 export interface LiteLLMTestResponse {
   ok: boolean
   models: string[]
+  chatModels?: string[]
   recommendedModels: string[]
   error: string
 }

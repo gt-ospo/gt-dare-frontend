@@ -40,6 +40,8 @@ export default function FileReprocessingDialog({ file, onClose }: Props) {
   const hasModel = !!visionModels?.models.some(
     (model) => model.identifier === selectedIdentifier
   )
+  const spinDocument =
+    !!file.embeddingModel && file.embeddingModel !== 'granite'
   const request = useAppSelector(
     (state) => state.files.reprocessingRequests[file.id]
   )
@@ -82,6 +84,14 @@ export default function FileReprocessingDialog({ file, onClose }: Props) {
           onChange={setMode}
           disabled={busy}
         />
+        {spinDocument && (
+          <p className='text-sm text-muted-foreground'>
+            This document will use its original SPIN search model (
+            {file.embeddingModel}) and your existing SPIN connection.
+            Reprocessing uses your SPIN allowance. Choose Basic to reprocess;
+            Advanced reprocessing is not available yet.
+          </p>
+        )}
         {(mode === DocumentProcessingMode.Advanced ||
           !!file.failedImageCount) && (
           <div className='space-y-2'>
@@ -155,6 +165,7 @@ export default function FileReprocessingDialog({ file, onClose }: Props) {
           <Button
             disabled={
               busy ||
+              (spinDocument && mode === DocumentProcessingMode.Advanced) ||
               (mode === DocumentProcessingMode.Advanced &&
                 (!hasModel || !!visionModelsError))
             }

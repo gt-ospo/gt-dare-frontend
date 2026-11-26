@@ -10,6 +10,7 @@ const destinations = [
   ['Conversations', '/conversation'],
   ['Sources', '/files'],
   ['Cost Tracking', '/billing/'],
+  ['Wallets and cost tracking', '/help/user-guide/wallets-and-cost-tracking'],
   ['User Manual', '/help/user-guide'],
   ['Help & support', '/help'],
   ['Forgot Password', '/forgot-password'],

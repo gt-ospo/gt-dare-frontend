@@ -310,7 +310,32 @@ The **DARE Wallet** records allocated usage credit. Its displayed dollar balance
 1. Open the wallet control in the header and check the selected wallet.
 2. Open [**Cost Tracking**](/billing/) and inspect the transaction history.
 3. After one small conversation, find its usage entry. Review the model, input/output tokens and recorded amount.
-4. Compare the amount with the balance change. Check for other transactions if the difference includes more than that one request.
+4. For an individual response, check the cost beneath it in the conversation or open its information panel.
+
+Balances show two decimal places. Small charges still reduce your credit even when the rounded balance looks unchanged. The cost beneath a response is also rounded; use Cost Tracking for the recorded amount and tokens. A completed response refreshes the wallet and usage totals.
+
+### Connect your SPIN account
+
+SPIN provides its own monthly token allowance for each user. To use its chat models in GT-DARE, connect your own SPIN key:
+
+1. Connect to the Georgia Tech VPN and open [SPIN](https://spin.pace.gatech.edu/). Sign in and use **Your Keys** to get your key.
+
+   ![SPIN home page with Your Keys in the top navigation.](/manual-assets/spin-home.jpg)
+
+2. In GT-DARE, open [**Cost Tracking**](/billing/) and choose **Add LiteLLM Key**.
+3. Choose **Use SPIN settings** to fill in the label and base URL. You can also enter `SPIN` as the label and `https://spin.pace.gatech.edu:4000/v1` as the base URL yourself. Enter your SPIN key, then choose **Next** to test the connection.
+4. Leave **Use the DARE default** selected for the background model and choose **Save**. Select **SPIN** in the wallet list.
+5. Open [**Conversations**](/conversation/), start a new chat and choose `gemma-4-26B` or `gemma-4-26B-long` from **Select Model**.
+
+New uploads use IBM Granite for document search. Your SPIN chat model is a separate choice.
+
+If you uploaded a SPIN-indexed document before this change, you can continue searching it with the original personal SPIN connection and token allowance. Other people cannot use your key to search it through a shared conversation or workflow. Reprocessing keeps the document's existing model and connection; choose Basic for a SPIN document. Advanced reprocessing and continuing scanned-page processing after an index is created are not available for these documents.
+
+If the original SPIN connection is unavailable, contact support. You can also upload the original file again to create a separate IBM Granite document. Keep the original file; exports do not include uploaded files or their search indexes.
+
+Wait for document processing to finish before deleting a SPIN document. If deletion does not complete, try again later or contact support.
+
+Check your SPIN token balance and reset date under **Your Usage** in SPIN. GT-DARE's Cost Tracking lists conversation tokens for the SPIN wallet; the displayed estimated cost is not your SPIN token balance. To use the DARE Wallet again, select it in the wallet control. Keep your SPIN key private.
 
 ### Understand tokens and rates
 
